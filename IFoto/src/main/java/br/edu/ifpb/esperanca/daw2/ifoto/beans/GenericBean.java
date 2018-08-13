@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import br.edu.ifpb.esperanca.daw2.dao.DAO;
 import br.edu.ifpb.esperanca.daw2.ifoto.entities.Identificavel;
+import br.edu.ifpb.esperanca.daw2.services.Service;
 
 public abstract class GenericBean<E extends Identificavel> implements Serializable{
 
@@ -20,11 +21,11 @@ public abstract class GenericBean<E extends Identificavel> implements Serializab
 	
 	private void init() {
 		entidade = newEntidade();
-		entidades = getDAO().getAll();
+		entidades = getService().getAll();
 	}
 	
 	public void remove(E entidade) {
-		getDAO().remove(entidade);
+		getService().remove(entidade);
 		limpar(); 
 	}
 
@@ -47,7 +48,7 @@ public abstract class GenericBean<E extends Identificavel> implements Serializab
 
 	
 	public void save() {
-		getDAO().save(entidade);
+		getService().save(entidade);
 		limpar();
 	}
 	
@@ -59,11 +60,11 @@ public abstract class GenericBean<E extends Identificavel> implements Serializab
 	}
 	
 	public void limpar() {
-		entidades = getDAO().getAll();
+		entidades = getService().getAll();
 		entidade = newEntidade();
 	}
 	
-	protected abstract DAO<E> getDAO();
+	public abstract Service<E> getService();
 	
 	protected abstract E newEntidade();
 	

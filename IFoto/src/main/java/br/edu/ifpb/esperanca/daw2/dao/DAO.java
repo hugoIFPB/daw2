@@ -19,33 +19,27 @@ public abstract class DAO<E extends Identificavel> {
 
 	private Class<E> classe;
 
-	public DAO() {
-		ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
-		classe = (Class<E>) parameterizedType.getActualTypeArguments()[0];
+	public DAO(Class<E> classe) {
+		this.classe = classe;
 	}
 
 	public void save(E obj) {
-		EntityTransaction transaction = em.getTransaction();
-		transaction.begin();
-		em.persist(obj);
-		transaction.commit();
+		if(obj.getId() == null) {
+			em.persist(obj);
+		} else {
+			update(obj);
+		}
 	}
 
 	public E update(E obj) {
-		EntityTransaction transaction = em.getTransaction();
-		transaction.begin();
 		E resultado = obj;
 		resultado = em.merge(obj);
-		transaction.commit();
 		return resultado;
 	}
 
 	public void remove(E obj) {
-		EntityTransaction transaction = em.getTransaction();
-		transaction.begin();
 		obj = getByID(obj.getId());
 		em.remove(obj);
-		transaction.commit();
 	}
 
 	public E getByID(Long objId) {

@@ -1,5 +1,6 @@
 package br.edu.ifpb.esperanca.daw2.util;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
@@ -8,17 +9,32 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class JPAUtil {
-	
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("ifoto_pu");
+
+	@Produces
+	@ApplicationScoped
+	public EntityManagerFactory criarEMF() {
+		EntityManagerFactory emf = null;
+		try {
+			emf = Persistence.createEntityManagerFactory("ifoto_pu");
+		} catch (Throwable t) {
+			t.printStackTrace();
+			throw t;
+		}
+		return emf;
+	}
 
 	@Produces
 	@RequestScoped
-	public EntityManager criarEM() {
-		return emf.createEntityManager();
+	public EntityManager criarEM(EntityManagerFactory factory) {
+		return factory.createEntityManager();
 	}
 
 	public void fecharEM(@Disposes EntityManager em) {
 		em.close();
+	}
+
+	public void fecharEMF(@Disposes EntityManagerFactory emf) {
+		emf.close();
 	}
 
 }
