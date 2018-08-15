@@ -1,12 +1,10 @@
 package br.edu.ifpb.esperanca.daw2.dao;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import br.edu.ifpb.esperanca.daw2.ifoto.entities.Identificavel;
