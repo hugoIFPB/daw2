@@ -1,4 +1,4 @@
-# daw2
+# COnfiguração do JAAS e Data Source
 Repositório dos projetos utilizados como exemplo na disciplina de Desenvolvimento de Aplicações Web II no curso técnico integrado em informática do IFPB Campus Esperança.
 
 1. NÃO implante a aplicação ainda antes de realizar todas essas configurações;
