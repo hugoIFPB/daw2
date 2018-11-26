@@ -11,8 +11,4 @@ public class UsuarioDAO extends DAO<Usuario> {
 		super(Usuario.class);
 	}
 
-	public List<Usuario> findBy(UsuarioFiltro filtro) {
-		return null;
-	}
-	
 }
